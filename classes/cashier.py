@@ -36,14 +36,25 @@ class Cashier:
         receipt = f"Date: {date} {time}\n\n"
         receipt += f"---Products---"
 
+
         total_discount = 0
 
         # display products
         for i in range(len(cart)):
-            receipt += f"\n\n\n{cart[i][0].name} {cart[i][0].brand}\n\n"
-            receipt += f"{cart[i][1]} x ${cart[i][0].price} = "
+            receipt += f"\n\n\n{cart[i][0].name} {cart[i][0].brand} "
+
+            # display additional attributes for Clothes and Appliances
+            if cart[i][0].__class__.__name__ == 'Clothes':
+                receipt += f"{cart[i][0].size} "
+                receipt += f"{cart[i][0].color}"
+
+            if cart[i][0].__class__.__name__ == 'Appliance':
+                receipt += f"{cart[i][0].model}"
+
+            receipt += f"\n\n{cart[i][1]} x ${cart[i][0].price} = "
             receipt += f"${round(cart[i][1] * cart[i][0].price, 2)}\n\n"
             
+
             old_price = cart[i][0].price
 
             # display discount
@@ -54,6 +65,7 @@ class Cashier:
                 receipt += f"#discount {round((1 - cart[i][0].pay_rate) * 100)}% "
                 receipt += f"-${round((old_price - new_price) * cart[i][1], 2)}\n"
                 total_discount += round(old_price - new_price, 2) * cart[i][1]
+
 
 
         receipt += "\n-----------------------------------\n\n"

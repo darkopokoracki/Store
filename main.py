@@ -23,3 +23,4 @@ cart = [
 #                                         year mon day ho  min sec
 purchase = Cashier(cart, datetime.datetime(2021, 6, 14, 12, 34, 56))
 print(purchase)
+
